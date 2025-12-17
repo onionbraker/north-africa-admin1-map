@@ -1,13 +1,11 @@
-# Navigate to your repository
 cd north-africa-admin1-map
 
-# Update the workflow file
 cat > .github/workflows/generate-map.yml << 'EOF'
 name: Generate North Africa Admin-1 Map
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch: 
   schedule:
     - cron: '0 0 1 * *'
@@ -61,7 +59,6 @@ jobs:
             (git commit -m "🗺️ Auto-update: North Africa Admin-1 map [$(date +'%Y-%m-%d')]" && git push)
 EOF
 
-# Commit and push the fix
 git add .github/workflows/generate-map.yml
-git commit -m "🔧 Fix YAML syntax error in workflow file"
+git commit -m "🔧 Fix YAML syntax error on line 6"
 git push origin main
