@@ -3,44 +3,45 @@ cd north-africa-admin1-map
 cat > .github/workflows/generate-map.yml << 'EOF'
 name: Generate North Africa Admin-1 Map
 
-on:
+on: 
   push:
-    branches: [main]
-  workflow_dispatch: 
+    branches: 
+      - main
+  workflow_dispatch:
   schedule:
     - cron: '0 0 1 * *'
 
-jobs:
+jobs: 
   generate-map:
     runs-on: ubuntu-latest
     
     steps:
-      - name:  Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
       
       - name: Install GDAL and dependencies
-        run: |
+        run:  |
           sudo apt-get update
           sudo apt-get install -y gdal-bin python3-gdal python3-pip wget unzip
           sudo npm install -g mapshaper
       
-      - name:  Install Python dependencies
+      - name: Install Python dependencies
         run: pip3 install -r requirements.txt
       
       - name: Create directories
         run: mkdir -p data output
       
       - name: Download GIS data
-        run: bash scripts/download_data. sh
+        run: bash scripts/download_data.sh
       
-      - name:  Process geometries
+      - name: Process geometries
         run: bash scripts/process_geometries.sh
       
       - name: Generate SVG
-        run: python3 scripts/generate_svg.py
+        run:  python3 scripts/generate_svg.py
       
-      - name:  Validate output
-        run: |
+      - name: Validate output
+        run:  |
           echo "Validating SVG output..."
           WILAYA_COUNT=$(grep -c 'data-country="Algeria"' output/world-admin1-north-africa.svg)
           echo "Algeria wilayas found: $WILAYA_COUNT"
@@ -50,9 +51,9 @@ jobs:
           fi
           echo "✅ Validation passed!"
       
-      - name:  Commit and push SVG
+      - name: Commit and push SVG
         run: |
-          git config user. name "GitHub Actions Bot"
+          git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           git add output/world-admin1-north-africa.svg
           git diff --quiet && git diff --staged --quiet || \
@@ -60,5 +61,5 @@ jobs:
 EOF
 
 git add .github/workflows/generate-map.yml
-git commit -m "🔧 Fix YAML syntax error on line 6"
+git commit -m "🔧 Fix YAML syntax - use proper list format for branches"
 git push origin main
