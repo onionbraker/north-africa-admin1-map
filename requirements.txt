@@ -1,0 +1,20 @@
+# requirements.txt
+echo "# No external Python dependencies required" > requirements.txt
+
+# Update .gitignore
+cat >> .gitignore << 'EOF'
+
+# GIS data files
+data/*. gpkg
+data/*.shp
+data/*.shx
+data/*.dbf
+data/*.prj
+data/*.cpg
+data/*.zip
+data/*.geojson
+
+# Keep directory structure
+! data/.gitkeep
+!output/.gitkeep
+EOF
