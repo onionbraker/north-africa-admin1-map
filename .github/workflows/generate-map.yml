@@ -1,18 +1,18 @@
-cat > .github/workflows/generate-map.yml << 'EOF'
 name: Generate North Africa Admin-1 Map
 
 on:
-  push:  
-    branches: [ main ]
-  workflow_dispatch:  
+  push: 
+    branches:
+      - main
+  workflow_dispatch:
   schedule:
-    - cron:  '0 0 1 * *'
+    - cron: '0 0 1 * *'
 
 jobs:
-  generate-map:  
-    runs-on: ubuntu-latest
+  generate-map:
+    runs-on:  ubuntu-latest
     
-    steps:  
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
       
@@ -48,11 +48,10 @@ jobs:
           fi
           echo "✅ Validation passed!"
       
-      - name:  Commit and push SVG
+      - name: Commit and push SVG
         run: |
           git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
+          git config user.email "actions@github. com"
           git add output/world-admin1-north-africa.svg
           git diff --quiet && git diff --staged --quiet || \
-            (git commit -m "🗺️ Auto-update:  North Africa Admin-1 map [$(date +'%Y-%m-%d')]" && git push)
-EOF
+            (git commit -m "🗺️ Auto-update: North Africa Admin-1 map [$(date +'%Y-%m-%d')]" && git push)
